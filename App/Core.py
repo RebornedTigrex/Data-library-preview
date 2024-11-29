@@ -8,11 +8,12 @@ DB_path = f"{Absolute_path}\\Data\\books.json"
 
 class BookAction:
     """Библиотека работы с базой данных в формате json. \n
-    :methood BookAction.add(): Добавление книги в базу данных
-    :methood BookAction.getInfo(): Получение информации о конкретной книге
-    :methood BookAction.take():
-    :methood BookAction.remove():
-    :methood:"""
+    :BookAction.add(): Добавление книги в базу данных
+    :BookAction.getInfo(): Получение информации о конкретной книге
+    :BookAction.take():
+    :BookAction.remove():
+    :BookAction.search():
+    :BookAction.allPositions():"""
     def __init__(self:object, file_path=DB_path) -> object:
         self.file_path = file_path
         if not os.path.exists(self.file_path):
@@ -72,8 +73,6 @@ class BookAction:
         # ---------------------------------------------------
         except Exception as err:
             print("Panic! In methood add:",err)
-        finally:
-            file.close()
     
     def search(self, identificator:str, det:str) -> list[tuple[dict, str]]|None:
         """
@@ -113,8 +112,6 @@ class BookAction:
                 return(out)
         except Exception as err:
             print("Panic! In methood search:",err)
-        finally:
-            file.close()
         
     
     # def getInfo(self, title):
@@ -155,11 +152,10 @@ class BookAction:
                             json.dump(data, file, indent=4, ensure_ascii=False)
                             return subObj
                         else:
-                            raise Exception(f"[CountError] Количество этих книг: {data["Books"][obj]["count"]}. Невозможно взять книгу!")
+                            raise Exception(f"[CountError] Количество этих книг: {data["Books"][obj]["count"]}. Невозможно взять больше!")
+                raise Exception("[NameError] Данного идентификатора не существует в базе данных.")
         except Exception as err:
             print("Panic! In methood take:",err)
-        finally:
-            file.close()
 
 
     def remove(self, item:str)-> None:
@@ -180,10 +176,11 @@ class BookAction:
             print("Panic! In methood remove:",err)
 
     def allPositions(self)-> list[dict]:
+        """Функция возвращает лист всех объектов"""
         out = []
         with open(self.file_path, mode="r+",encoding="utf-8") as file:
             data = json.load(file)
             for item in data["Books"].keys():
-                out.append(data["Books"][item])
+                out.append({item:data["Books"][item]})
             return(out)
         # return(data["Books"])

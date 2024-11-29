@@ -1,0 +1,25 @@
+{
+    "Books": {
+        "0": {
+            "title": "dhd",
+            "author": "dfh",
+            "year": "34",
+            "count": 1,
+            "status": "На хранении"
+        },
+        "1": {
+            "title": "22",
+            "author": "4 fd",
+            "year": "44",
+            "count": 1,
+            "status": "На хранении"
+        },
+        "2": {
+            "title": "23",
+            "author": "hh",
+            "year": "44",
+            "count": 1,
+            "status": "На хранении"
+        }
+    }
+}
